@@ -2,9 +2,9 @@
 
 Shared classification rules for digital-forensics / DFIR articles, news items, and related posts.
 
-**YAML is the editable source of truth.** `category_rules.json` is generated for consumers that can only use the Python standard library (for example a local dashboard that must not depend on PyYAML).
+**YAML is the only published rules file.** This repository does not ship generated JSON. Consumers that must stay on the Python standard library convert the YAML in their own project, then load JSON at runtime.
 
-This repository does not fetch feeds or render a UI. It ships the rules, a small stdlib classifier, and the converter/tests used to change those rules safely.
+This repository does not fetch feeds or render a UI. It ships the YAML rules, a small stdlib classifier for JSON that consumers generate, and tests.
 
 ## How classification works
 
@@ -25,43 +25,36 @@ Runtime classification uses only the standard library: load JSON, compile `re.I`
 
 | File | Role |
 | --- | --- |
-| `category_rules.yaml` | Edit this |
-| `category_rules.json` | Generated; what dashboards should vendor |
-| `classify.py` | Stdlib engine (`classify_article`) |
-| `tools/yaml_to_json.py` | YAML → JSON converter (needs PyYAML) |
+| `category_rules.yaml` | Edit this (source of truth) |
+| `classify.py` | Stdlib engine (`classify_article`) that loads consumer-generated JSON |
 | `tests/` | Pattern compile check + title→label fixtures |
-| `schema/category_rules.schema.json` | Optional JSON Schema |
+| `schema/category_rules.schema.json` | Optional schema for the JSON consumers generate |
 
 ## How to contribute
 
-Edit `category_rules.yaml`, not the JSON. Add or tighten `patterns`, and use `notes` to explain intent (for example why a phrase is title-only or excluded). Keep exclusive categories at the top so first-match behavior stays stable. Prefer YAML single-quoted strings so regex backslashes stay literal; a `|` block is fine for a long pattern (the converter strips wrapping newlines). Do not hand-edit `category_rules.json` — JSON string escaping is different (`\\b` vs `\b`) and will drift. After you change the YAML, run `python tools/yaml_to_json.py` and `python -m pytest`, then open a pull request.
+Edit `category_rules.yaml`. Add or tighten `patterns`, and use `notes` to explain intent (for example why a phrase is title-only or excluded). Keep exclusive categories at the top so first-match behavior stays stable. Prefer YAML single-quoted strings so regex backslashes stay literal; a `|` block is fine for a long pattern (consumers should strip wrapping newlines when converting). After you change the YAML, run `python -m pytest`, then open a pull request.
 
 ### Regex caveats
 
 - Patterns are compiled with `re.IGNORECASE`.
-- In YAML, `'\bdfir jobs\b'` is a regex word-boundary. In JSON that same pattern must be `"\\bdfir jobs\\b"`.
-- A YAML `|` block may include a trailing newline; `tools/yaml_to_json.py` flattens that so the compiled regex does not change.
+- In YAML, `'\bdfir jobs\b'` is a regex word-boundary. In generated JSON that same pattern must be `"\\bdfir jobs\\b"`.
+- A YAML `|` block may include a trailing newline; flatten that during conversion so the compiled regex does not change.
 - Test both the title and a typical excerpt. Training title-only rules exist because footer CTAs such as “training program” would otherwise exclusive-tag unrelated interviews.
 
 ## Development
 
-Python 3.8+ for `classify.py`. PyYAML and pytest are **dev** dependencies of this repo only:
+Python 3.8+ for `classify.py`. PyYAML and pytest are **dev** dependencies of this repo (tests load YAML directly):
 
 ```bat
 python -m pip install -r requirements-dev.txt
-python tools/yaml_to_json.py
 python -m pytest
 ```
 
-Print a JS `CATEGORY_TAXONOMY` array (names plus fallback) after converting:
+## Using the rules from another project
 
-```bat
-python tools/yaml_to_json.py --emit-taxonomy
-```
+Copy `category_rules.yaml` into the consumer. Convert it to JSON **in that project** (PyYAML is only needed for the conversion step). Vendor or pin a revision of the YAML; do not live-fetch GitHub at startup.
 
-## Using the JSON from another project
-
-Copy `category_rules.json` (and optionally `classify.py`) into the consumer. Do not live-fetch GitHub at startup — vendor or pin a revision. The classifier is stdlib-only:
+Example: a local dashboard can keep a copy of this YAML, run a converter (`python tools/yaml_to_json.py`) to write `category_rules.json`, then load that JSON with the stdlib classifier:
 
 ```python
 from classify import classify_article

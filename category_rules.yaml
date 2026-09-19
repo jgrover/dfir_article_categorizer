@@ -1,16 +1,15 @@
 # DFIR article category rules — source of truth.
-# Edit this file, then regenerate JSON:
-#   python tools/yaml_to_json.py
+# Edit this YAML. Consumers convert it to JSON in their own project
+# (this repository does not ship generated JSON).
 #
-# Consumers that cannot depend on PyYAML should load category_rules.json.
 # Category order matters: exclusive rules are first-match, so keep
 # DFIR Jobs, Mental Health, and Training and Certifications first.
 #
 # Regex notes:
 #   - Patterns are compiled with re.IGNORECASE.
 #   - Prefer single-quoted YAML strings so backslashes stay literal.
-#   - A `|` block is fine for long patterns; the converter keeps newlines out.
-#   - JSON escaping is different (\\b not \b). Do not hand-edit the JSON.
+#   - A `|` block is fine for long patterns; flatten wrapping newlines
+#     when converting so the compiled regex does not change.
 
 version: 1
 fallback: 'Digital forensics (general)'

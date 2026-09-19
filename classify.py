@@ -103,12 +103,22 @@ def compile_rules(raw: dict[str, Any] | None = None, path: Path | None = None) -
 _COMPILED: CompiledRules | None = None
 
 
+def _apply_defaults(rules: CompiledRules) -> None:
+    global EXCLUSIVE_CATEGORIES, CATEGORY_NAMES, FALLBACK_CATEGORY, EDITORIAL_TYPES, EDITORIAL_CATEGORY
+    EXCLUSIVE_CATEGORIES = rules.exclusive_categories
+    CATEGORY_NAMES = rules.category_names
+    FALLBACK_CATEGORY = rules.fallback
+    EDITORIAL_TYPES = rules.editorial_types
+    EDITORIAL_CATEGORY = rules.editorial_category
+
+
 def compiled_rules(path: Path | None = None) -> CompiledRules:
     global _COMPILED
     if path is not None:
         return compile_rules(path=path)
     if _COMPILED is None:
         _COMPILED = compile_rules()
+        _apply_defaults(_COMPILED)
     return _COMPILED
 
 
@@ -178,9 +188,11 @@ def classify_article(item: dict[str, Any], rules: CompiledRules | None = None) -
     return categories
 
 
-_DEFAULT = compiled_rules()
-EXCLUSIVE_CATEGORIES = _DEFAULT.exclusive_categories
-CATEGORY_NAMES = _DEFAULT.category_names
-FALLBACK_CATEGORY = _DEFAULT.fallback
-EDITORIAL_TYPES = _DEFAULT.editorial_types
-EDITORIAL_CATEGORY = _DEFAULT.editorial_category
+EXCLUSIVE_CATEGORIES: frozenset[str] = frozenset()
+CATEGORY_NAMES: list[str] = []
+FALLBACK_CATEGORY = "Digital forensics (general)"
+EDITORIAL_TYPES: set[str] = set()
+EDITORIAL_CATEGORY = "Editorial & commentary"
+
+if DEFAULT_RULES_PATH.is_file():
+    compiled_rules()

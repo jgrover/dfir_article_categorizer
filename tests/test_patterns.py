@@ -4,13 +4,14 @@ import re
 from pathlib import Path
 
 import classify
+from yaml_rules import yaml_payload
 
 ROOT = Path(__file__).resolve().parents[1]
 OSINT_NAME = "OSINT, social media & messaging"
 
 
 def test_all_patterns_compile() -> None:
-    raw = classify.load_rules()
+    raw = yaml_payload()
     compiled = 0
     for category in raw["categories"]:
         for group in ("patterns", "title_only", "exclude", "weak_patterns"):
@@ -68,4 +69,4 @@ def test_no_skipped_dashboard_categories() -> None:
     assert classify.CATEGORY_NAMES == expected
     assert classify.FALLBACK_CATEGORY == "Digital forensics (general)"
     assert (ROOT / "category_rules.yaml").is_file()
-    assert (ROOT / "category_rules.json").is_file()
+    assert not (ROOT / "category_rules.json").exists()
