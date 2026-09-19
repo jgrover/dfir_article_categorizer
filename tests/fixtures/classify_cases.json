@@ -1,0 +1,171 @@
+[
+  {
+    "item": {
+      "title": "DFIR Jobs Round-up — September 2026",
+      "url": "https://dfirdominican.com/dfir-jobs"
+    },
+    "labels": [
+      "DFIR Jobs"
+    ]
+  },
+  {
+    "item": {
+      "title": "DFIR Jobs: Android malware analyst in Boston"
+    },
+    "labels": [
+      "DFIR Jobs"
+    ]
+  },
+  {
+    "item": {
+      "title": "Mental Health and Burnout for Investigators"
+    },
+    "labels": [
+      "Mental Health"
+    ]
+  },
+  {
+    "item": {
+      "title": "SANS Certification Exam Prep Course"
+    },
+    "labels": [
+      "Training and Certifications"
+    ]
+  },
+  {
+    "item": {
+      "title": "New training course available",
+      "excerpt": "Interview with a practitioner about casework and Android artefacts."
+    },
+    "labels": [
+      "Training and Certifications"
+    ]
+  },
+  {
+    "item": {
+      "title": "Training ML models for malware classification"
+    },
+    "labels": [
+      "Incident Response & Malware"
+    ]
+  },
+  {
+    "item": {
+      "title": "Machine-learning model training phase for image classification"
+    },
+    "labels": [
+      "Multimedia & camera forensics"
+    ]
+  },
+  {
+    "item": {
+      "title": "Legal applications of smartphone evidence in court",
+      "abstract": "forensic analysis and legal usability"
+    },
+    "labels": [
+      "Mobile forensics"
+    ]
+  },
+  {
+    "item": {
+      "title": "Paired smartphone in-vehicle infotainment forensics"
+    },
+    "labels": [
+      "Vehicle Forensics"
+    ]
+  },
+  {
+    "item": {
+      "title": "A brief note on laboratory accreditation methods"
+    },
+    "labels": [
+      "Digital forensics (general)"
+    ]
+  },
+  {
+    "item": {
+      "title": "Infosec News Nuggets — week of Sept 15",
+      "source": "AboutDFIR",
+      "url": "https://aboutdfir.com/nuggets"
+    },
+    "labels": [
+      "Incident Response & Malware"
+    ]
+  },
+  {
+    "item": {
+      "title": "Welcome to the special issue",
+      "type": "Editorial"
+    },
+    "labels": [
+      "Editorial & commentary"
+    ]
+  },
+  {
+    "item": {
+      "title": "CTF write-up: evidence locker challenge"
+    },
+    "labels": [
+      "CTFs"
+    ]
+  },
+  {
+    "item": {
+      "title": "Android WhatsApp messaging artefacts on GrapheneOS"
+    },
+    "labels": [
+      "Mobile forensics",
+      "OSINT, social media & messaging"
+    ]
+  },
+  {
+    "item": {
+      "title": "Volatility memory dump ransomware analysis"
+    },
+    "labels": [
+      "Memory forensics",
+      "Incident Response & Malware"
+    ]
+  },
+  {
+    "item": {
+      "title": "OSINT collection from social media and ephemeral messaging"
+    },
+    "labels": [
+      "OSINT, social media & messaging"
+    ]
+  },
+  {
+    "item": {
+      "title": "Bitcoin money laundering on the blockchain"
+    },
+    "labels": [
+      "Cryptocurrency & financial crime"
+    ]
+  },
+  {
+    "item": {
+      "title": "Deepfake video forensic source camera PRNU"
+    },
+    "labels": [
+      "Multimedia & camera forensics"
+    ]
+  },
+  {
+    "item": {
+      "title": "We are hiring DFIR analysts",
+      "url": "https://forensicfocus.com/jobs/dfir"
+    },
+    "labels": [
+      "DFIR Jobs"
+    ]
+  },
+  {
+    "item": {
+      "title": "Workshop Wednesday: Magnet certification"
+    },
+    "labels": [
+      "Training and Certifications"
+    ]
+  }
+]

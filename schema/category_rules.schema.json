@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jgrover/dfir_article_categorizer/schema/category_rules.schema.json",
+  "title": "DFIR article category rules",
+  "type": "object",
+  "required": [
+    "version",
+    "fallback",
+    "max_labels",
+    "editorial_types",
+    "editorial_category",
+    "categories"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "integer", "minimum": 1 },
+    "fallback": { "type": "string", "minLength": 1 },
+    "max_labels": { "type": "integer", "minimum": 1 },
+    "editorial_types": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "editorial_category": { "type": "string", "minLength": 1 },
+    "special_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title_pattern", "blob_contains", "blob_fields", "labels"],
+        "properties": {
+          "id": { "type": "string" },
+          "notes": { "type": "string" },
+          "title_pattern": { "type": "string", "minLength": 1 },
+          "blob_contains": { "type": "string" },
+          "blob_fields": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "labels": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "exclusive", "patterns"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "exclusive": { "type": "boolean" },
+          "notes": { "type": "string" },
+          "patterns": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "title_only": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "exclude": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "weak_patterns": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
